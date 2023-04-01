@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    :root {
+        --bkcolor: red;
+    }
+    * {
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0px;
+    }
+    .header {
+        position: fixed;
+        width: 100%;
+        height: 10%;
+        top: 0%;
+        background-color: green;
+    }
+    .header div {
+        display: flex;
+        position: relative;
+        height: 100%;
+        align-items: center;
+        float: left;
+    }
+    .main {
+        position: fixed;
+        width: 100%;
+        height: 80%;
+        top: 10%;
+        overflow: auto;
+        background-color: gray;
+    }
+    .footer {
+        position: fixed;
+        width: 100%;
+        height: 10%;
+        bottom: 0%;
+        background-color: var(--bkcolor);
+    }
+    .btnCircle {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        border: 0px solid white;
+        border-radius: 50px;
+        box-shadow: 5px 5px 2px lightblue;
+    }
+    .btnCircle:hover {
+        background-color: blueviolet;
+        animation-name: example;
+        animation-duration: 100; 
+    }
+    @keyframes example {
+        from {top: 0px;}
+        to {top: 200px;}
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <button class="btnCircle" onclick="handle()">mode</button>
+        <button class="btnCircle" onclick="handle2()">mode2</button>
+    </div>    
+</div>
+
+<div class="main">
+    <p style="height: 50px; background-color:aqua;">this is main text</p>
+    <p style="height: 1000px; background-color: blueviolet;">overflow!</p>
+</div>
+
+<div class="footer">
+    3
+</div>
+
+<script>
+    var r = document.querySelector(':root');
+    function handle() {
+        r.style.setProperty('--bkcolor', 'blue');
+    }
+    function handle2() {
+        r.style.setProperty('--bkcolor', 'red');
+    }
+</script>
+
+</body>
+</html>
+
+
