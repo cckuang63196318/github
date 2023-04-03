@@ -1,96 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CSS Template</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-    :root {
-        --bkcolor: red;
-    }
-    * {
-        box-sizing: border-box;
-        padding: 0px;
-        margin: 0px;
-    }
-    .header {
-        position: fixed;
-        width: 100%;
-        height: 10%;
-        top: 0%;
-        background-color: green;
-    }
-    .header div {
-        display: flex;
-        position: relative;
-        height: 100%;
-        align-items: center;
-        float: left;
-    }
-    .main {
-        position: fixed;
-        width: 100%;
-        height: 80%;
-        top: 10%;
-        overflow: auto;
-        background-color: gray;
-    }
-    .footer {
-        position: fixed;
-        width: 100%;
-        height: 10%;
-        bottom: 0%;
-        background-color: var(--bkcolor);
-    }
-    .btnCircle {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        margin: 5px;
-        border: 0px solid white;
-        border-radius: 50px;
-        box-shadow: 5px 5px 2px lightblue;
-    }
-    .btnCircle:hover {
-        background-color: blueviolet;
-        animation-name: example;
-        animation-duration: 100; 
-    }
-    @keyframes example {
-        from {top: 0px;}
-        to {top: 200px;}
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        :root {
+            --clr: #222327;
+            --clrNav: lightgray;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: white;
+        } 
+        li {
+            list-style: none;
+        }       
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+        a:hover {
+            color: orange;
+        }
+        .header {
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            max-width: 767px;
+            top: 0;
+            background-color: green;
+        }
+        .main {
+            position: fixed;
+            top: 60px;
+            width: 100%;
+            max-width: 767px;
+            height: calc(100% - 130px);
+            background-color: var(--clr);
+            overflow: auto;
+        }
+        .section {
+
+            color: white;
+        }
+        .navbar {
+            height: 60px;
+            max-width: 767px;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;            
+        }
+        .navbar .links {
+            display: flex;
+            gap: 2rem;
+        }
+        .navbar .toggle_btn {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+        .action_btn {
+            background-color: orange;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            outline: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .action_btn:hover {
+            transform: scale(1.05);
+            color: #fff;
+        }
+        .action_btn:active {
+            transform: scale(0.95);
+        }
+        .dropdown_menu {
+            display: none;
+            position: absolute;
+            right: 2rem;
+            top: 60px;
+            height: 0;
+            width: 150px;
+            background-color: rgba(50, 50, 50, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: height .2s cubic-bezier(0.175,0.885,0.32,1.275);
+        }
+        .dropdown_menu.open {
+            height: 240px;
+        }
+        .dropdown_menu li {
+            padding: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dropdown_menu .action_btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width:767px) {
+            .navbar .links,
+            .navbar .action_btn {
+                display: none;
+            }
+
+            .navbar .toggle_btn {
+                display: block;
+            }
+
+            .dropdown_menu {
+                display: block;
+            }
+        }
+        .navigation {
+            width: 100%;
+            max-width: 767px;
+            height: 70px;
+            background: var(--clrNav);
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 0;
+        }
+        .navigation ul {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .navigation ul li {
+            position: relative;
+            list-style: none;
+            display: flex;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+        }
+        .navigation ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+        /* svg icon from https://ionic.io/ionicons */
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            width: 50px; /* just for svg img */
+            height: 50px; /* just for svg img */
+            border-radius: 50%;
+            padding: 10px;
+            line-height: 75px;
+            font-size: 1.5em;
+            text-align: center;
+            transition: 0.5s;
+            color: var(--clr);
+        }
+        .navigation ul li:hover a .icon {
+            background: #29fd53;
+            transform: translateY(-35px);
+        }
+        .navigation ul li a .text {
+            position: absolute;
+            color: var(--clr);
+            font-weight: 400;
+            font-size: 0.75em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .navigation ul li:hover a .text {
+            opacity: 1;
+            transform: translateY(10px);
+        }
+        .indicator {
+            position: absolute;
+            top: -50%;
+            width: 70px;
+            height: 70px;
+            background: #29fd53;
+            border-radius: 50%;
+            border: 6px solid var(--clr);
+            transition: 0.5s;
+        }
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -22px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border-top-right-radius: 20px;
+            box-shadow: 0px -10px 0 0 var(--clr);
+        }
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -22px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border-top-left-radius: 20px;
+            box-shadow: 0px -10px 0 0 var(--clr);
+        }
+
+        .navigation ul li:nth-child(1).active ~ .indicator {
+            transform: translateX(calc(70px * 0));
+        }
+        .navigation ul li:nth-child(2).active ~ .indicator {
+            transform: translateX(calc(70px * 1));
+        }
+        .navigation ul li:nth-child(3).active ~ .indicator {
+            transform: translateX(calc(70px * 2));
+        }
+        .navigation ul li:nth-child(4).active ~ .indicator {
+            transform: translateX(calc(70px * 3));
+        }
+        .navigation ul li:nth-child(5).active ~ .indicator {
+            transform: translateX(calc(70px * 4));
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <div class="navbar">
+            <div class="logo"><a href="#">Logo</a></div>
+            <ul class="links">
+                <li><a href="hero">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="services">Services</a></li>
+                <li><a href="contact">Contact</a></li>
+            </ul>
+            <a href="#" class="action_btn">Get Started</a>
+            <div class="toggle_btn">
+                <svg id="toggle_btnM" style="display: block;" width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><title>menu_line</title><g id='页面-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g id='Editor' transform='translate(-1248.000000, 0.000000)' fill-rule='nonzero'><g id='menu_line' transform='translate(1248.000000, 0.000000)'><path d='M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z' id='MingCute' fill-rule='nonzero'></path><path d='M20,18 C20.5523,18 21,18.4477 21,19 C21,19.51285 20.613973,19.9355092 20.1166239,19.9932725 L20,20 L4,20 C3.44772,20 3,19.5523 3,19 C3,18.48715 3.38604429,18.0644908 3.88337975,18.0067275 L4,18 L20,18 Z M20,11 C20.5523,11 21,11.4477 21,12 C21,12.5523 20.5523,13 20,13 L4,13 C3.44772,13 3,12.5523 3,12 C3,11.4477 3.44772,11 4,11 L20,11 Z M20,4 C20.5523,4 21,4.44772 21,5 C21,5.55228 20.5523,6 20,6 L4,6 C3.44772,6 3,5.55228 3,5 C3,4.44772 3.44772,4 4,4 L20,4 Z' id='形状' fill='white'></path></g></g></g></svg>
+                <svg id="toggle_btnX" style="display: none;" width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><title>close_fill</title><g id='页面-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g id='System' transform='translate(-288.000000, -48.000000)'><g id='close_fill' transform='translate(288.000000, 48.000000)'><path d='M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z' id='MingCute' fill-rule='nonzero'></path><path d='M12,14.1215 L17.3032,19.4248 C17.889,20.0106 18.8388,20.0106 19.4246,19.4248 C20.0104,18.839 20.0104,17.8893 19.4246,17.3035 L14.1213,12.0002 L19.4246,6.6969 C20.0104,6.11112 20.0104,5.16137 19.4246,4.57558 C18.8388,3.9898 17.889,3.9898 17.3032,4.57558 L12,9.87888 L6.69665,4.57557 C6.11086,3.98978 5.16111,3.98978 4.57533,4.57557 C3.98954,5.16136 3.98954,6.1111 4.57533,6.69689 L9.87863,12.0002 L4.57533,17.3035 C3.98954,17.8893 3.98954,18.839 4.57533,19.4248 C5.16111,20.0106 6.11086,20.0106 6.69665,19.4248 L12,14.1215 Z' id='路径' fill='white'></path></g></g></g></svg>
+            </div>
+        </div>
 
-<div class="header">
-    <div>
-        <button class="btnCircle" onclick="handle()">mode</button>
-        <button class="btnCircle" onclick="handle2()">mode2</button>
-    </div>    
-</div>
+        <div class="dropdown_menu">
+            <li><a href="hero">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="services">Services</a></li>
+            <li><a href="contact">Contact</a></li>
+            <li><a href="#" class="action_btn">Get Started</a></li>
+        </div>
+    </div>
 
-<div class="main">
-    <p style="height: 50px; background-color:aqua;">this is main text</p>
-    <p style="height: 1000px; background-color: blueviolet;">overflow!</p>
-</div>
+    <div class="main">
+        <div class="section">
+            <p>gggg</p>
+            <p>jjj</p>
+            <div style="height: 1000px; background-color:blue;">hhhh</div>
+        </div>
+    </div>
 
-<div class="footer">
-    3
-</div>
+    <div class="navigation">
+        <ul>
+            <li class="list">
+                <a herf="#">
+                    <!--
+                    <span class="icon">&#127968;</span>    
+                    -->
+                    <!-- 更省request次數 -->
+                    <svg class="icon" viewBox="0 0 512 512"><path d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li class="list">
+                <a herf="#">
+                    <svg class="icon" viewBox="0 0 512 512"><path d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    <span class="text">Profile</span>
+                </a>
+            </li>
+            <li class="list">
+                <a herf="#">
+                    <svg class="icon" viewBox="0 0 512 512"><path d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    <span class="text">Message</span>
+                </a>
+            </li>
+            <li class="list">
+                <a herf="#">
+                    <svg class="icon" viewBox="0 0 512 512"><path d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    <span class="text">Photos</span>
+                </a>
+            </li>
+            <li class="list">
+                <a herf="#">
+                    <svg class="icon" viewBox="0 0 512 512"><path d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <!--<div class="indicator"></div>-->
+        </ul>
+    </div>
 
-<script>
-    var r = document.querySelector(':root');
-    function handle() {
-        r.style.setProperty('--bkcolor', 'blue');
-    }
-    function handle2() {
-        r.style.setProperty('--bkcolor', 'red');
-    }
-</script>
+    <script>
+        const toggleBtn = document.querySelector('.toggle_btn')
+        const toggleBtnIcon = document.querySelector('.toggle_btn svg')
+        const dropDownMenu = document.querySelector('.dropdown_menu')
+        const toggle_btnM = document.getElementById('toggle_btnM')
+        const toggle_btnX = document.getElementById('toggle_btnX')
 
+        toggleBtn.onclick = function (params) {
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            if(isOpen) {
+                toggle_btnM.style.setProperty('display', 'none')
+                toggle_btnX.style.setProperty('display', 'block')
+            }else {
+                toggle_btnM.style.setProperty('display', 'block')
+                toggle_btnX.style.setProperty('display', 'none')
+            }
+        }
+    </script>
 </body>
 </html>
-
-
