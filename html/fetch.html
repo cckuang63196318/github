@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+            height: 100vh;
+        }
+        .btn {
+            position: relative;
+            width: 100px;
+            height: 30px;
+            color: #fff;
+            background: transparent;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px #fff;
+            text-align: center;
+            padding: 5px 0;
+            transition: 0.5s all;
+        }
+
+        .btn:hover {
+            width: 150px;
+            height: 60px;
+        }
+        .btn:active {
+            width: 50px;
+            height: 15px;
+        }
+        #txt {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn" onclick="handle2()">click me</div>
+    <div id="txt"></div>
+    <script>
+        async function handle() {
+            try{
+                let res = await fetch('./data/test.json')
+                if(!res.ok) {
+                    throw new Error("Network response was not OK");
+                }
+                let data = await res.json()
+                document.getElementById('txt').innerText = data.b
+            }catch(e) {
+                alert(e.message)
+            }
+        }
+
+        function handle2() {
+            fetch('./data/test.json').then(
+                res => res.json().then(
+                    data => alert(data.a)
+                )
+            )
+        }
+    </script>
+</body>
+</html>
