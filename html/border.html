@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: blue;
+        }
+        .box {
+            position: relative;
+            display: flex;
+            width: 300px;
+            height: 400px;
+            background: #000;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+        .box::before, .box::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(315deg, #0f0, #f00);
+            inset: -80px 100px;
+            transition: 0.5s;
+            filter: hue-rotate(0deg);
+            animation: animate 8s linear infinite;
+        }
+        .box::after {
+            background: linear-gradient(315deg, yellow, orange);
+            filter: hue-rotate(0deg);
+            animation-delay: -2s;
+
+        }
+        .box:hover::before, .box:hover::after {
+            animation-play-state: paused;
+            inset: -80px 80px;
+        }
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .content {
+            position: absolute;
+            width: 260px;
+            height: 360px;
+            background: gray;
+            z-index: 4;
+        }
+        i {
+            position: absolute;
+            inset: 3px;
+            background: #000;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <i></i>
+        <div class="content">test</div>
+    </div>
+</body>
+</html>
