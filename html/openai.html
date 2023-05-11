@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="requestBody" />
+        <button onclick="sendOpenAI()">Send</button>
+    </div>
+    <div>
+        <textarea rows ="5" cols ="60" id="responseBody"></textarea>
+    </div>
+
+    <script>
+        OpenAIURL_completions = 'https://api.openai.com/v1/completions'
+        OpenAIKey = 'Bearer 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'
+        async function sendOpenAI() {
+            let reqbody = {
+                "model": "text-davinci-003",
+                "prompt": `${document.getElementById('requestBody').value}` ,
+                "max_tokens": 700,
+                "temperature": 0
+            }
+            const resp = await fetch(
+                OpenAIURL_completions,
+                {
+                    body: JSON.stringify(reqbody),
+                    cache: 'no-cache',
+                    headers: {
+                        'Authorization': OpenAIKey,
+                        'content-type': 'application/json'
+                    },
+                    method: 'POST',
+                }
+            )
+            const respData = await resp.json()
+            document.getElementById('responseBody').innerText = JSON.stringify(respData)
+        }
+    </script>
+</body>
+</html>
